@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: root
+    password: jace1
+    url: jdbc:mysql://10.100.84.91:3307/kotlin_docker?characterEncoding=utf8&amp&useSSL=false&amp&autoReconnection=true
+    driver-class-name: com.mysql.cj.jdbc.Driver

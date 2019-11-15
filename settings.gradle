@@ -1,0 +1,12 @@
+rootProject.name = "kotlin"
+
+include("exposed-generator")
+//include("messages-generator")
+include("exposed-extend")
+include("grpc-protocol")
+include("grpc")
+include("api")
+
+for (project in rootProject.children) {
+    project.projectDir = file("subprojects/${project.name}")
+}

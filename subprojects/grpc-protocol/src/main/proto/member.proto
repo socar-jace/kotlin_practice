@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "proto";
+option java_outer_classname = "MemberProto";
+
+package proto;
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+// import "common.proto";
+
+// The greeting service definition.
+service MemberService {
+  rpc GetMembers(GetMembersParams) returns (GetMembersResult) {}
+//  rpc GetMember(GetMemberParams) returns (GetMemberResult) {}
+}
+
+// object
+message Member {
+  uint64 id = 1;
+  string name = 2;
+  string nickname = 3;
+}
+
+////
+// request
+////
+message GetMembersParams {}
+
+// message GetMemberParams {
+//  int64 id = 1;
+// }
+
+////
+// response
+////
+message GetMembersResult {
+  repeated Member member = 1;
+}
+// message GetMemberResult {
+//  Member member = 1;
+//}

@@ -1,0 +1,20 @@
+dependencies {
+    compile project(':api')
+    compile project(':exposed-extend')
+    compile("com.squareup:kotlinpoet:${kotlinPoetVersion}")
+    compile("org.atteo:evo-inflector:1.2.2")
+}
+
+
+task generateExposed(type: JavaExec) {
+    main = "backoffice.exposed.ExposedSchemaGeneratorKt"
+    classpath = sourceSets.main.runtimeClasspath
+    workingDir = project.rootDir
+    def datasource = "primary"
+    if (project.hasProperty("datasource")) {
+        datasource = project.property("datasource")
+    }
+    if (project.hasProperty("tableName")) {
+        args(project.property("tableName"), project(':api').projectDir.toString() + "/src/main/kotlin", datasource)
+    }
+}

@@ -1,0 +1,126 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+//        classpath 'org.jetbrains.kotlin:kotlin-allopen'
+//        classpath 'org.jetbrains.kotlin:kotlin-noarg'
+    }
+}
+
+plugins {
+    id 'org.liquibase.gradle' version '1.2.3'
+    id 'jacoco'
+    id 'org.sonarqube'
+    id "com.google.protobuf" version "0.8.8"
+}
+
+jacoco {
+    toolVersion = "0.8.3"
+}
+
+sonarqube {
+    properties {
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+
+dependencies {
+//    compile project(':protocol')
+//    compile project(':protocol-ext')
+    // mysSQL 연결
+    compile('mysql:mysql-connector-java')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+
+
+    compile project(':exposed-extend')
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile('org.springframework.boot:spring-boot-starter-data-redis-reactive')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-webflux')
+//    compile('org.springframework.boot:spring-boot-starter-security')
+
+    compile('org.springframework.data:spring-data-commons')
+
+//    compile('org.springframework.cloud:spring-cloud-starter-aws')
+
+    compile("com.google.protobuf:protobuf-java:${protobufVersion}")
+    compile("com.google.protobuf:protobuf-java-util:${protobufVersion}")
+//    compile("io.grpc:grpc-netty:${grpcVersion}")
+//    compile("io.grpc:grpc-protobuf:${grpcVersion}")
+//    compile("io.grpc:grpc-stub:${grpcVersion}")
+
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+
+    compile("org.jetbrains.exposed:exposed:${exposedVersion}")
+    compile("org.jetbrains.exposed:spring-transaction:${exposedVersion}")
+    compile group: 'org.geolatte', name: 'geolatte-geom', version: '1.3.0'
+
+//    compile('org.mariadb.jdbc:mariadb-java-client:2.3.0')
+
+//    compile('com.amazonaws:aws-java-sdk-ses')
+//    compile('com.amazonaws:aws-java-sdk-s3')
+
+    compile('org.geotools:gt-shapefile:19.1') {
+        exclude(group: 'javax.media', module: 'jai_core')
+    }
+    compile('org.geotools:gt-geojson:19.1') {
+        exclude(group: 'javax.media', module: 'jai_core')
+        exclude(group: 'junit', module: 'junit')
+    }
+    compile('de.grundid.opendatalab:geojson-jackson:1.8')
+
+    compile('commons-validator:commons-validator:1.6')
+
+    compile('com.google.guava:guava')
+    compile('com.zaxxer:HikariCP:2.7.9')
+
+    compile("org.springframework.kotlin:spring-kotlin-coroutine:${springKotlinCoroutineVersion}")
+    compile("org.springframework.kotlin:spring-webmvc-kotlin-coroutine:${springKotlinCoroutineVersion}")
+    compile("org.springframework.boot:spring-boot-starter-amqp")
+    compile('com.drewnoakes:metadata-extractor:2.11.0')
+    compile('com.gu:kinesis-logback-appender:1.4.2')
+
+    // mime type detector
+    compile('org.apache.tika:tika-core:1.22')
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+
+//    testCompile project(path: ':protocol', configuration: 'tests')
+
+    compile('org.keycloak:keycloak-admin-client:7.0.0')
+    compile('org.jboss.resteasy:resteasy-client:3.7.0.Final')
+    compile('org.jboss.resteasy:resteasy-jaxrs:3.7.0.Final')
+    compile('org.jboss.resteasy:resteasy-jackson2-provider:3.7.0.Final')
+
+    compile project(':grpc-protocol')
+
+//    implementation 'com.amazonaws:aws-java-sdk-s3'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+    implementation "io.grpc:grpc-core:${grpcVersion}"
+    implementation "io.grpc:grpc-services:${grpcVersion}"
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+
+    implementation "org.hashids:hashids:1.0.3"
+}
+
+//jar.enabled = true
+bootJar.enabled = true
+bootJar {
+    mainClassName = 'backoffice.ApplicationKt'
+}

@@ -1,0 +1,26 @@
+
+jar.enabled = true
+
+dependencies {
+    compile("com.google.protobuf:protobuf-java:${protobufVersion}")
+    compile("com.google.protobuf:protobuf-java-util:${protobufVersion}")
+
+    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+    compile('de.grundid.opendatalab:geojson-jackson:1.8')
+
+    compile('org.springframework.data:spring-data-commons')
+
+    compile("org.jetbrains.exposed:exposed:${exposedVersion}")
+    compile("org.jetbrains.exposed:spring-transaction:${exposedVersion}")
+    compile group: 'org.geolatte', name: 'geolatte-geom', version: '1.3.0'
+
+    compile('org.geotools:gt-shapefile:19.1') {
+        exclude(group: 'javax.media', module: 'jai_core')
+    }
+    compile('org.geotools:gt-geojson:19.1') {
+        exclude(group: 'javax.media', module: 'jai_core')
+        exclude(group: 'junit', module: 'junit')
+    }
+    compile('de.grundid.opendatalab:geojson-jackson:1.8')
+
+}
